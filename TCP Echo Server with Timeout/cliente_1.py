@@ -4,11 +4,13 @@ import socket
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 try:
     client_socket.connect(("localhost", 28886))
-    while (message := input()) != "quit":
+    message = ""
+    while message != "quit":
+        message = input()
         client_socket.sendall(message.encode())
         try:
             answer = client_socket.recv(1024).decode()
-            print(f"O servidor respondeu ''{answer}'")
+            print(f"O servidor respondeu '{answer}'")
         except ConnectionAbortedError:
             print("Conexão encerrada pelo servidor")
             client_socket.close()

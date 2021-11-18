@@ -2,25 +2,26 @@ import socket
 
 
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
 try:
     client_socket.connect(("localhost", 28886))
-    message = ""
-    while message != "quit":
-        message = input()
-        client_socket.sendall(message.encode())
+    
+    while True:
+        message = input("Requisitar > ")
+        client_socket.send(message.encode())
+        
+        if message == "Encerrar":
+            print("Desligamento solicitado!")
+            break
+        
         try:
             answer = client_socket.recv(1024).decode()
-            print(f"O servidor respondeu '{answer}'")
+            print(f"Resposta > {answer}")
         except ConnectionAbortedError:
             print("Conexão encerrada pelo servidor")
             client_socket.close()
             break
-    else:
-        print("Desligamento solicitado!")
-    client_socket.close()
     
+    client_socket.close()
 except ConnectionRefusedError:
     print("Não foi possível se conectar ao servidor.")
-
-    
-    

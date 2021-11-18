@@ -3,8 +3,8 @@ import datetime
 
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-server_socket.bind(("localhost", 50000))
-print("Servidor online em localhost:50000", f"\n{'*' * 34}\n")
+server_socket.bind(("localhost", 28886))
+print("Servidor online em localhost:28886", f"\n{'*' * 34}\n")
 while True:
     message, address = server_socket.recvfrom(1024)
     message = message.decode()
